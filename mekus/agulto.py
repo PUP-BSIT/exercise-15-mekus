@@ -19,7 +19,7 @@ MENU_CHOICES = {
     "4": "Three-Pointer",
     "5": "Check Stats",
     "6": "Rest and Recover",
-    "0": "Exit Game"
+    "0": "Back"
 }
 
 # List of possible NBA teams
