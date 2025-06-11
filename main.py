@@ -2,6 +2,7 @@ import os
 import pyfiglet
 
 from mekus import PokemonGame
+from mekus import RockPaperScissors
 
 EXIT_CHOICE = "0"
 MENU_CHOICES = {
@@ -52,9 +53,8 @@ class MekusModules:
         PokemonGame().menu()
 
     def run_serohijos_module(self):
-        """Run Serohijo's module."""
-        # TODO(Serohijo): Implement integration
-        pass
+        """Run Serohijos's module."""
+        RockPaperScissors().main()
 
     def handle_user_choice(self, choice):
         """Handle a menu choice and run the selected module."""

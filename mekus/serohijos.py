@@ -89,6 +89,3 @@ class RockPaperScissors:
 
             self.display_score()
             input('Press Enter to continue...')
-            
-game = RockPaperScissors()
-game.main()
