@@ -1,6 +1,8 @@
 import os
 import pyfiglet
 
+from mekus import PokemonGame
+
 EXIT_CHOICE = "0"
 MENU_CHOICES = {
     "1": "Agulto's Module",
@@ -47,8 +49,7 @@ class MekusModules:
 
     def run_olazo_module(self):
         """Run Olazo's module."""
-        # TODO(Olazo): Implement integration
-        pass
+        PokemonGame().menu()
 
     def run_serohijos_module(self):
         """Run Serohijo's module."""
