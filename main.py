@@ -6,7 +6,8 @@ from mekus import (
     PokemonGame, 
     RockPaperScissors, 
     MobileLegendsStats, 
-    NBA2K25
+    NBA2K25,
+    ValorantOps
 )
 
 EXIT_CHOICE = "0"
@@ -48,8 +49,7 @@ class MekusModules:
 
     def run_jundam_module(self):
         """Run Jundam's module."""
-        # TODO(Jundam): Implement integration
-        pass
+        ValorantOps().menu()
 
     def run_olazo_module(self):
         """Run Olazo's module."""
