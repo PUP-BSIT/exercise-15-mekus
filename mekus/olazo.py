@@ -539,16 +539,6 @@ class PokemonGame:
             self._clear_screen(has_prompt=False)
             return
 
-        confirm_choice = self._get_integer_choice(
-            f"\nThis will reset your stats. "
-            "Do you want to confirm? (1 for Yes, 0 for No): "
-        )
-
-        # If user confirms, proceed with difficulty change
-        if confirm_choice == 0:
-            self._clear_screen(has_prompt=False)
-            return
-
         self._reset_stats()  # Reset stats before changing difficulty
         self._set_difficulty(difficulties[choice - 1])
         self._clear_screen()
