@@ -1,9 +1,7 @@
 import os
 import pyfiglet
 
-from mekus import PokemonGame
-from mekus import RockPaperScissors
-from mekus import NBA2K25
+from mekus import PokemonGame, RockPaperScissors, NBA2K25
 
 EXIT_CHOICE = "0"
 MENU_CHOICES = {
