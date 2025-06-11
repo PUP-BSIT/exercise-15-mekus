@@ -1,5 +1,6 @@
-import os
-import pyfiglet
+import os  # Standard library
+
+import pyfiglet  # Third-party library
 
 WIN = "win"
 LOSS = "loss"
