@@ -3,6 +3,7 @@ import pyfiglet
 
 from mekus import PokemonGame
 from mekus import RockPaperScissors
+from mekus import ValorantOps
 
 EXIT_CHOICE = "0"
 MENU_CHOICES = {
@@ -45,8 +46,7 @@ class MekusModules:
 
     def run_jundam_module(self):
         """Run Jundam's module."""
-        # TODO(Jundam): Implement integration
-        pass
+        ValorantOps().menu()
 
     def run_olazo_module(self):
         """Run Olazo's module."""
