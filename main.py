@@ -3,6 +3,7 @@ import pyfiglet
 
 from mekus import PokemonGame
 from mekus import RockPaperScissors
+from mekus import MobileLegendsStats
 
 EXIT_CHOICE = "0"
 MENU_CHOICES = {
@@ -40,8 +41,7 @@ class MekusModules:
 
     def run_dazo_module(self):
         """Run Dazo's module."""
-        # TODO(Dazo): Implement integration
-        pass
+        MobileLegendsStats().menu()
 
     def run_jundam_module(self):
         """Run Jundam's module."""
