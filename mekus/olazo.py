@@ -166,6 +166,10 @@ class PokemonGame:
             self._display_round_state()
             self._show_round_menu()
 
+        # Check if the class is still running before handling game over
+        if not self.is_class_running:
+            return  # Exit if class is not running
+
         # Out of ATTEMPTS
         self._handle_game_over()
 
