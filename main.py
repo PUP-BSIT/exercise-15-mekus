@@ -57,7 +57,7 @@ class MekusModules:
 
     def run_serohijos_module(self):
         """Run Serohijos's module."""
-        RockPaperScissors().main()
+        RockPaperScissors().menu()
 
     def handle_user_choice(self, choice):
         """Handle a menu choice and run the selected module."""

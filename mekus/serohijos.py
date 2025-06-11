@@ -59,7 +59,7 @@ class RockPaperScissors:
             print('You lose!')
             self.score['computer'] += 1
 
-    def main(self):
+    def menu(self):
         """Main game loop."""
         self.clear_screen()
         self.display_title()
