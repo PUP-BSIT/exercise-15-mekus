@@ -166,6 +166,10 @@ class PokemonGame:
             self._display_round_state()
             self._show_round_menu()
 
+        # Check if the class is still running before handling game over
+        if not self.is_class_running:
+            return  # Exit if class is not running
+
         # Out of ATTEMPTS
         self._handle_game_over()
 
@@ -526,20 +530,12 @@ class PokemonGame:
 
     def _handle_difficulty_choice(self):
         """Process user's difficulty selection."""
+        print("NOTE: Changing the difficulty will reset your stats!\n")
+
         difficulties = list(DIFFICULTIES.keys())
         choice = self._get_choice(len(difficulties))
 
         if choice == 0:
-            self._clear_screen(has_prompt=False)
-            return
-
-        confirm_choice = self._get_integer_choice(
-            f"\nThis will reset your stats. "
-            "Do you want to confirm? (1 for Yes, 0 for No): "
-        )
-
-        # If user confirms, proceed with difficulty change
-        if confirm_choice == 0:
             self._clear_screen(has_prompt=False)
             return
 
@@ -596,6 +592,10 @@ class PokemonGame:
         """Exit game with confirmation."""
         print(f"\nThanks for playing, {self.player_name}!")
         self.is_class_running = False  # Set class running flag to False
+
+        # Clear any pending game state
+        self.is_game_active = False
+        self.attempts_left = 0
 
     def _display_menu(self, options, title):
         """Display formatted menu with options."""
