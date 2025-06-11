@@ -1,9 +1,7 @@
 import os
 import pyfiglet
 
-from mekus import PokemonGame
-from mekus import RockPaperScissors
-from mekus import MobileLegendsStats
+from mekus import PokemonGame, RockPaperScissors, MobileLegendsStats
 
 EXIT_CHOICE = "0"
 MENU_CHOICES = {
