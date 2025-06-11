@@ -530,6 +530,8 @@ class PokemonGame:
 
     def _handle_difficulty_choice(self):
         """Process user's difficulty selection."""
+        print("NOTE: Changing the difficulty will reset your stats!\n")
+
         difficulties = list(DIFFICULTIES.keys())
         choice = self._get_choice(len(difficulties))
 
