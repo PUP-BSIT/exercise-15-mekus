@@ -203,6 +203,7 @@ class NBA2K25:
     def menu(self):
         while True:
             self.display_title()
+            # Exit the loop if the user selects the back option
             print(Fore.YELLOW + "\n=== MAIN MENU ===")
 
             for key, desc in MENU_CHOICES.items():
