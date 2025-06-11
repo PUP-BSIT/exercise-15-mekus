@@ -59,7 +59,7 @@ class RockPaperScissors:
             print('You lose!')
             self.score['computer'] += 1
 
-    def menu(self):
+    def main(self):
         """Main game loop."""
         self.clear_screen()
         self.display_title()
@@ -68,6 +68,7 @@ class RockPaperScissors:
             self.clear_screen()
             self.display_title()
             self.display_score()
+            # Exit the loop if the user selects the quit option
             
             user_choice = self.get_user_choice()
 
