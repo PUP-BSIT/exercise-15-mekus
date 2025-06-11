@@ -593,6 +593,10 @@ class PokemonGame:
         print(f"\nThanks for playing, {self.player_name}!")
         self.is_class_running = False  # Set class running flag to False
 
+        # Clear any pending game state
+        self.is_game_active = False
+        self.attempts_left = 0
+
     def _display_menu(self, options, title):
         """Display formatted menu with options."""
         menu_options = self._format_menu_options(options)
