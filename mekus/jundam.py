@@ -172,6 +172,7 @@ class ValorantOps:
             self.clear_screen()
             self.display_banner()
             self.display_menu()
+            # Exit the loop if the user selects the exit option
             choice = input("\nChoose an option: ")
             if not self.handle_user_choice(choice):
                 break
