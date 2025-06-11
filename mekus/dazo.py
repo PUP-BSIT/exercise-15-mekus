@@ -185,8 +185,3 @@ class MobileLegendsStats:
             user_choice = input("\nChoose an option: ").strip()
             if not self.handle_user_choice(user_choice):
                 break
-
-if __name__ == "__main__":
-    # Local test run for Dazo's module
-    ml_stats = MobileLegendsStats()
-    ml_stats.menu()
