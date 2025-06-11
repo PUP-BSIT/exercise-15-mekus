@@ -3,6 +3,7 @@ import pyfiglet
 
 from mekus import PokemonGame
 from mekus import RockPaperScissors
+from mekus import NBA2K25
 
 EXIT_CHOICE = "0"
 MENU_CHOICES = {
@@ -35,8 +36,7 @@ class MekusModules:
 
     def run_agulto_module(self):
         """Run Agulto's module."""
-        # TODO(Agulto): Implement integration
-        pass
+        NBA2K25().menu()
 
     def run_dazo_module(self):
         """Run Dazo's module."""
