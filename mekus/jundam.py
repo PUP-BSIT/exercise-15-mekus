@@ -166,7 +166,7 @@ class ValorantOps:
         success_rate = (defusals / attempts) * 100
         print(f"Bomb Defusal Success Rate: {success_rate:.2f}%")
 
-    def jundam_main(self):
+    def menu(self):
         """Main loop that runs the Valorant statistics program."""
         while True:
             self.clear_screen()

@@ -75,16 +75,16 @@ class PokemonGame:
 
     def menu(self):
         """Main game loop."""
-        self._display_welcome()
-        self._get_player_name()
-        self._clear_screen()
+        self.display_welcome()
+        self.get_player_name()
+        self.clear_screen()
 
         # Call method to show the main menu
-        self._show_main_menu()
+        self.show_main_menu()
 
-    def _display_welcome(self):
+    def display_welcome(self):
         """Display welcome message with ASCII art."""
-        self._clear_screen(has_prompt=False)
+        self.clear_screen(has_prompt=False)
 
         # Prepare welcome banner using ASCII art
         BANNER_JUSTIFICATION = "center"
@@ -99,7 +99,7 @@ class PokemonGame:
         print(banner)
         print("Welcome! Let's see how well you know your Pokemon!")
 
-    def _get_player_name(self):
+    def get_player_name(self):
         """Get and validate player name."""
 
         # Loop until a valid name is entered
@@ -115,79 +115,79 @@ class PokemonGame:
 
             print("Name cannot be empty. Please try again.")
 
-    def _show_main_menu(self):
+    def show_main_menu(self):
         """Display main menu and handle user selection."""
-        self._clear_screen(has_prompt=False)
+        self.clear_screen(has_prompt=False)
 
         # Display main menu options
         while self.is_class_running:
-            self._display_main_menu_options()
-            self._handle_main_menu_choice()
+            self.display_main_menu_options()
+            self.handle_main_menu_choice()
 
-    def _get_main_menu_options(self):
+    def get_main_menu_options(self):
         """Return the main menu options dictionary."""
         return {
-            "START_GAME": self._start_game,
-            "VIEW_INSTRUCTIONS": self._display_instructions,
-            "CHANGE_DIFFICULTY": self._change_difficulty,
-            "VIEW_STATS": self._display_stats,
-            "RESET_GAME": self._reset_game,
+            "START_GAME": self.start_game,
+            "VIEW_INSTRUCTIONS": self.display_instructions,
+            "CHANGE_DIFFICULTY": self.change_difficulty,
+            "VIEW_STATS": self.display_stats,
+            "RESET_GAME": self.reset_game,
         }
 
-    def _display_main_menu_options(self):
+    def display_main_menu_options(self):
         """Display the main menu options."""
 
         # Prepare main menu title and options
         MAIN_MENU_TITLE = "MAIN MENU"
-        self._display_menu(self._get_main_menu_options(), MAIN_MENU_TITLE)
+        self.display_menu(self.get_main_menu_options(), MAIN_MENU_TITLE)
 
-    def _handle_main_menu_choice(self):
+    def handle_main_menu_choice(self):
         """Process user's main menu selection."""
-        choice = self._get_choice(len(self._get_main_menu_options()))
+        choice = self.get_choice(len(self.get_main_menu_options()))
 
         # If choice is 0, exit the game
         if choice == 0:
-            self._exit_game()  # Exit the game
+            self.exit_game()  # Exit the game
             return
 
-        self._clear_screen(has_prompt=False)
-        self._execute_menu_action(self._get_main_menu_options(), choice)
+        self.clear_screen(has_prompt=False)
+        self.execute_menu_action(self.get_main_menu_options(), choice)
 
-    def _go_back_to_main_menu(self):
+    def go_back_to_main_menu(self):
         """Clear screen and return to main menu."""
-        self._show_main_menu()
+        self.show_main_menu()
 
-    def _start_game(self):
+    def start_game(self):
         """Start a new game round."""
-        self._setup_round()
+        self.setup_round()
 
         # Main game loop for the round
         while self.attempts_left > 0 and self.is_game_active:
-            self._display_round_state()
-            self._show_round_menu()
+            self.display_round_state()
+            self.show_round_menu()
 
         # Check if the class is still running before handling game over
         if not self.is_class_running:
             return  # Exit if class is not running
 
         # Out of ATTEMPTS
-        self._handle_game_over()
+        self.handle_game_over()
 
-    def _display_round_state(self):
+    def display_round_state(self):
         """Display current round information and Pokemon."""
-        self._clear_screen(has_prompt=False)
+        self.clear_screen(has_prompt=False)
 
-        self._display_round_state_info()
-        self._display_pokemon()
+        self.display_round_state_info()
+        self.display_pokemon()
 
-    def _setup_round(self):
+    def setup_round(self):
         """Set up a new round with random Pokemon."""
         self.is_game_active = True
         self.attempts_left = DIFFICULTIES[self.difficulty]["ATTEMPTS"]
-        self._select_random_pokemon()
-        self._generate_hints()
+        self.select_random_pokemon()
+        self.generate_hints()
 
-    def _display_round_state_info(self):
+    def display_round_state_info(self):
         """Display current round information."""
         ROUND_INFO_TITLE = "ROUND INFORMATION"
 
@@ -200,15 +200,15 @@ class PokemonGame:
             f"HINTS_AVAILABLE: {len(self.hints)}",
         ]
 
-        self._show_box_display(ROUND_INFO_TITLE, round_info)
+        self.show_box_display(ROUND_INFO_TITLE, round_info)
 
-    def _select_random_pokemon(self):
+    def select_random_pokemon(self):
         """Select a random Pokemon that hasn't been used."""
-        pokemon_id = self._generate_unique_pokemon_id()
+        pokemon_id = self.generate_unique_pokemon_id()
         self.current_pokemon = pypokedex.get(dex=pokemon_id)
         self.used_pokemon_ids.add(pokemon_id)
 
-    def _generate_unique_pokemon_id(self):
+    def generate_unique_pokemon_id(self):
         """Generate a unique Pokemon ID within the difficulty range."""
         MIN_POKEMON_ID = 1
         MAX_POKEMON_ID = DIFFICULTIES[self.difficulty]["MAX_POKEMON"]
@@ -216,10 +216,10 @@ class PokemonGame:
         # Loop until a valid unique Pokemon ID is found
         while True:
             pokemon_id = random.randint(MIN_POKEMON_ID, MAX_POKEMON_ID)
-            if self._is_valid_pokemon_id(pokemon_id):
+            if self.is_valid_pokemon_id(pokemon_id):
                 return pokemon_id  # Return the valid unique Pokemon ID
 
-    def _is_valid_pokemon_id(self, pokemon_id):
+    def is_valid_pokemon_id(self, pokemon_id):
         """Check if Pokemon ID exists and hasn't been used."""
         pokemon = None
         try:
@@ -231,33 +231,33 @@ class PokemonGame:
 
         return pokemon and (pokemon_id not in self.used_pokemon_ids)
 
-    def _is_pokemon_unique(self, pokemon_id):
+    def is_pokemon_unique(self, pokemon_id):
         """Check if the Pokemon ID is unique for this game."""
         if pokemon_id not in self.used_pokemon_ids:
             self.current_pokemon = pypokedex.get(dex=pokemon_id)
             self.used_pokemon_ids.add(pokemon_id)
             return True
 
-    def _generate_hints(self):
+    def generate_hints(self):
         """Generate hints based on Pokemon data."""
         HINTS_COUNT = DIFFICULTIES[self.difficulty]["HINTS"]
-        self.hints = self._create_possible_hints()[:HINTS_COUNT]
+        self.hints = self.create_possible_hints()[:HINTS_COUNT]
 
-    def _create_possible_hints(self):
+    def create_possible_hints(self):
         """Create all possible hints for the current Pokemon."""
         return [
-            self._create_type_hint(),
-            self._create_abilities_hint(),
-            self._create_height_hint(),
-            self._create_weight_hint(),
+            self.create_type_hint(),
+            self.create_abilities_hint(),
+            self.create_height_hint(),
+            self.create_weight_hint(),
         ]
 
-    def _create_type_hint(self):
+    def create_type_hint(self):
         """Create type hint string."""
         types = [t.capitalize() for t in self.current_pokemon.types]
         return f"Type: {', '.join(types)}"
 
-    def _create_abilities_hint(self):
+    def create_abilities_hint(self):
         """Create abilities hint string."""
         abilities = [
             ability.name.capitalize()
@@ -265,24 +265,24 @@ class PokemonGame:
         ]
         return f"Abilities: {', '.join(abilities)}"
 
-    def _create_height_hint(self):
+    def create_height_hint(self):
         """Create height hint string."""
         return f"Height: {self.current_pokemon.height / POKEMON_UNIT_DIVISOR}m"
 
-    def _create_weight_hint(self):
+    def create_weight_hint(self):
         """Create weight hint string."""
         return f"Weight: {self.current_pokemon.weight / POKEMON_UNIT_DIVISOR}kg"
 
-    def _display_pokemon(self):
+    def display_pokemon(self):
         """Display Pokemon ASCII art as silhouette."""
         pokemon_data = get_pokemon(pid=self.current_pokemon.dex)
         ascii_art = pokemon_data[self.current_pokemon.dex]["ascii"]
         self.current_pokemon_ascii = ascii_art
 
-        silhouette = self._create_silhouette(ascii_art)
+        silhouette = self.create_silhouette(ascii_art)
         print(f"{silhouette}\n")
 
-    def _create_silhouette(self, ascii_art):
+    def create_silhouette(self, ascii_art):
         """Convert ASCII art to silhouette effect."""
         if not ascii_art:
             return ""
@@ -294,74 +294,74 @@ class PokemonGame:
 
         return "".join(SILHOUETTE_CHAR_MAP.get(char, " ") for char in ascii_art)
 
-    def _show_round_menu(self):
+    def show_round_menu(self):
         """Display round options and handle choice."""
-        self._display_round_state_menu_options()
-        self._handle_round_menu_choice()
+        self.display_round_state_menu_options()
+        self.handle_round_menu_choice()
 
-    def _get_round_menu_options(self):
+    def get_round_menu_options(self):
         """Return the round menu options dictionary."""
         return {
-            "MAKE_GUESS": self._process_guess,
-            "VIEW_HINT": self._show_hint,
-            "VIEW_STATS": self._display_stats,
+            "MAKE_GUESS": self.process_guess,
+            "VIEW_HINT": self.show_hint,
+            "VIEW_STATS": self.display_stats,
         }
 
-    def _display_round_state_menu_options(self):
+    def display_round_state_menu_options(self):
         """Display the round menu options."""
         ROUND_MENU_TITLE = "ROUND ACTIONS"
-        self._display_menu(self._get_round_menu_options(), ROUND_MENU_TITLE)
+        self.display_menu(self.get_round_menu_options(), ROUND_MENU_TITLE)
 
-    def _handle_round_menu_choice(self):
+    def handle_round_menu_choice(self):
         """Process user's round menu selection."""
-        choice = self._get_choice(len(self._get_round_menu_options()))
+        choice = self.get_choice(len(self.get_round_menu_options()))
 
         if choice == 0:
-            self._go_back_to_main_menu()
+            self.go_back_to_main_menu()
             return
 
-        self._clear_screen(has_prompt=False)
-        self._display_round_state()  # Show current round state
-        self._execute_menu_action(self._get_round_menu_options(), choice)
+        self.clear_screen(has_prompt=False)
+        self.display_round_state()  # Show current round state
+        self.execute_menu_action(self.get_round_menu_options(), choice)
 
-    def _process_guess(self):
+    def process_guess(self):
         """Handle player's Pokemon guess."""
         print(" === GUESS THE POKEMON ".ljust(MENU_WIDTH, "="))
         guess = input("ENTER YOUR GUESS: ").strip().lower()
         correct_name = self.current_pokemon.name.lower()
 
-        self._handle_guess(guess, correct_name)
+        self.handle_guess(guess, correct_name)
 
-    def _handle_guess(self, guess, correct_name):
+    def handle_guess(self, guess, correct_name):
         """Check if the player's guess is correct."""
 
         # Check if the guess matches the correct Pokemon name
         if guess == correct_name:
-            self._handle_correct_guess()  # Call method to handle correct guess
+            self.handle_correct_guess()  # Call method to handle correct guess
             return  # Exit if guess is correct
 
         # Call method to handle wrong guess
-        self._handle_wrong_guess()
+        self.handle_wrong_guess()
 
-    def _handle_correct_guess(self):
+    def handle_correct_guess(self):
         """Handle correct guess - update score and streak."""
-        points = self._calculate_points()
-        self._update_score_and_streak(points)
-        self._update_highest_stats()
-        self._display_correct_guess_message(points)
-        self._clear_screen()
+        points = self.calculate_points()
+        self.update_score_and_streak(points)
+        self.update_highest_stats()
+        self.display_correct_guess_message(points)
+        self.clear_screen()
         # Start new round immediately
-        self._setup_round()
+        self.setup_round()
 
-    def _update_score_and_streak(self, points):
+    def update_score_and_streak(self, points):
         """Update player score and increment streak."""
         self.score += points
         self.streak += 1
 
-    def _display_correct_guess_message(self, points):
+    def display_correct_guess_message(self, points):
         """Display the correct guess confirmation message."""
-        self._clear_screen(has_prompt=False)
-        self._display_current_pokemon_art()
+        self.clear_screen(has_prompt=False)
+        self.display_current_pokemon_art()
 
         # Title for correct guess feedback
         TITLE = "CORRECT GUESS"
@@ -372,13 +372,13 @@ class PokemonGame:
             f"You earned {points} points!",
         ]
 
-        self._show_box_display(TITLE, messages)
+        self.show_box_display(TITLE, messages)
 
-    def _display_current_pokemon_art(self):
+    def display_current_pokemon_art(self):
         """Display the current Pokemon's ASCII art."""
         print(self.current_pokemon_ascii)
 
-    def _update_highest_stats(self):
+    def update_highest_stats(self):
         """Update highest score and streak if current is greater."""
 
         # Check if current score is greater than highest score
@@ -389,46 +389,46 @@ class PokemonGame:
         if self.streak > self.highest_streak:
             self.highest_streak = self.streak  # Update highest streak
 
-    def _calculate_points(self):
+    def calculate_points(self):
         """Calculate points based on attempts and difficulty."""
-        base_points = self._calculate_base_points()
+        base_points = self.calculate_base_points()
         difficulty_multiplier = DIFFICULTIES[self.difficulty]["MULTIPLIER"]
-        streak_bonus = self._calculate_streak_bonus()
+        streak_bonus = self.calculate_streak_bonus()
 
         # Return total points as an integer
         return int(base_points * difficulty_multiplier * streak_bonus)
 
-    def _calculate_base_points(self):
+    def calculate_base_points(self):
         """Calculate base points with attempt bonus."""
         return BASE_POINTS + (self.attempts_left * ATTEMPT_BONUS_MULTIPLIER)
 
-    def _calculate_streak_bonus(self):
+    def calculate_streak_bonus(self):
         """Calculate streak bonus multiplier."""
         return BASE_STREAK_BONUS + (self.streak * STREAK_BONUS_MULTIPLIER)
 
-    def _handle_wrong_guess(self):
+    def handle_wrong_guess(self):
         """Handle incorrect guess."""
-        self._clear_screen(has_prompt=False)
-        self._display_round_state()
+        self.clear_screen(has_prompt=False)
+        self.display_round_state()
 
-        self._decrement_attempts()
+        self.decrement_attempts()
 
         # Check if player has attempts remaining
-        if self._has_attempts_remaining():
-            self._display_retry_prompt()
-            self._clear_screen()
+        if self.has_attempts_remaining():
+            self.display_retry_prompt()
+            self.clear_screen()
             return  # Exit if attempts are still left
 
         # No attempts left, display game over message
-        self._display_no_attempts_left_message()
-        self._clear_screen()
+        self.display_no_attempts_left_message()
+        self.clear_screen()
 
-    def _decrement_attempts(self):
+    def decrement_attempts(self):
         """Decrease remaining attempts and show feedback."""
         self.attempts_left -= 1
-        self._display_wrong_guess_message()
+        self.display_wrong_guess_message()
 
-    def _display_wrong_guess_message(self):
+    def display_wrong_guess_message(self):
         """Display feedback for wrong guess."""
 
         # Title for wrong guess feedback
@@ -437,27 +437,27 @@ class PokemonGame:
         # Prepare messages for wrong guess feedback
         messages = [f"Incorrect! {self.attempts_left} attempts left."]
 
-        self._show_box_display(TITLE, messages)
+        self.show_box_display(TITLE, messages)
 
-    def _has_attempts_remaining(self):
+    def has_attempts_remaining(self):
         """Check if player has attempts remaining."""
         return self.attempts_left > 0
 
-    def _display_retry_prompt(self):
+    def display_retry_prompt(self):
         """Prompt player to try again or use hint."""
         print("Try again or use a hint!")
 
-    def _display_no_attempts_left_message(self):
+    def display_no_attempts_left_message(self):
         """Display game over message when no attempts remain."""
         print("No more attempts left!")
 
-    def _show_hint(self):
+    def show_hint(self):
         """Display next available hint."""
 
         # Check if there are any hints left
         if not self.hints:
             print("\nNo more HINTS available!")
-            self._clear_screen()
+            self.clear_screen()
             return
 
         # Retrieve the next hint and remove it from the list
@@ -470,30 +470,30 @@ class PokemonGame:
         ]
 
         # Display hint in a formatted box
-        self._show_box_display(HINT_TITLE, HINT_MESSAGE)
+        self.show_box_display(HINT_TITLE, HINT_MESSAGE)
 
         # Small penalty for HINTS
         self.score = max(MIN_SCORE, self.score - SCORE_PENALTY)
 
-        self._clear_screen()
+        self.clear_screen()
 
-    def _handle_game_over(self):
+    def handle_game_over(self):
         """Handle end of round when out of ATTEMPTS."""
 
         self.streak = INITIAL_STREAK  # Reset streak on game over
 
-        self._clear_screen(has_prompt=False)
+        self.clear_screen(has_prompt=False)
 
         # Display current Pokemon ASCII art
-        self._display_current_pokemon_art()
+        self.display_current_pokemon_art()
 
         print(
             f"\nGame Over! "
             f"The Pokemon was {self.current_pokemon.name.capitalize()}."
         )
-        self._clear_screen()
+        self.clear_screen()
 
-    def _display_instructions(self):
+    def display_instructions(self):
         """Display game instructions."""
 
         # Title
@@ -515,40 +515,40 @@ class PokemonGame:
             "- Difficulty multiplier",
         ]
 
-        self._show_box_display(INSTRUCTIONS_TITLE, INSTRUCTIONS)
-        self._clear_screen()
+        self.show_box_display(INSTRUCTIONS_TITLE, INSTRUCTIONS)
+        self.clear_screen()
 
-    def _change_difficulty(self):
+    def change_difficulty(self):
         """Allow player to change difficulty."""
-        self._display_difficulty_options()
-        self._handle_difficulty_choice()
+        self.display_difficulty_options()
+        self.handle_difficulty_choice()
 
-    def _display_difficulty_options(self):
+    def display_difficulty_options(self):
         """Display available difficulty options."""
         difficulties = list(DIFFICULTIES.keys())
-        self._display_menu(difficulties, "Select Difficulty")
+        self.display_menu(difficulties, "Select Difficulty")
 
-    def _handle_difficulty_choice(self):
+    def handle_difficulty_choice(self):
         """Process user's difficulty selection."""
         print("NOTE: Changing the difficulty will reset your stats!\n")
 
         difficulties = list(DIFFICULTIES.keys())
-        choice = self._get_choice(len(difficulties))
+        choice = self.get_choice(len(difficulties))
 
         if choice == 0:
-            self._clear_screen(has_prompt=False)
+            self.clear_screen(has_prompt=False)
             return
 
-        self._reset_stats()  # Reset stats before changing difficulty
-        self._set_difficulty(difficulties[choice - 1])
-        self._clear_screen()
+        self.reset_stats()  # Reset stats before changing difficulty
+        self.set_difficulty(difficulties[choice - 1])
+        self.clear_screen()
 
-    def _set_difficulty(self, difficulty):
+    def set_difficulty(self, difficulty):
         """Set the game difficulty and notify player."""
         self.difficulty = difficulty
         print(f"\nDifficulty set to {difficulty}!")
 
-    def _display_stats(self):
+    def display_stats(self):
         """Display current player statistics."""
 
         # Title for player statistics
@@ -565,30 +565,30 @@ class PokemonGame:
             f"Pokemon Encountered: {len(self.used_pokemon_ids)}",
         ]
 
-        self._show_box_display(PLAYER_STATS_TITLE, player_stats)
+        self.show_box_display(PLAYER_STATS_TITLE, player_stats)
 
-        self._clear_screen()
+        self.clear_screen()
 
-    def _reset_game(self):
+    def reset_game(self):
         """Reset game to initial state."""
-        self._reset_stats()  # Reset player stats
+        self.reset_stats()  # Reset player stats
 
         RESET_TITLE = "GAME RESET"
         RESET_MESSAGE = [
             "Game has been reset!",
         ]
 
-        self._show_box_display(RESET_TITLE, RESET_MESSAGE)
+        self.show_box_display(RESET_TITLE, RESET_MESSAGE)
 
-        self._clear_screen()
+        self.clear_screen()
 
-    def _reset_stats(self):
+    def reset_stats(self):
         """Reset player statistics to initial values."""
         self.score = INITIAL_SCORE
         self.streak = INITIAL_STREAK
         self.used_pokemon_ids.clear()
 
-    def _exit_game(self):
+    def exit_game(self):
         """Exit game with confirmation."""
         print(f"\nThanks for playing, {self.player_name}!")
         self.is_class_running = False  # Set class running flag to False
@@ -597,12 +597,12 @@ class PokemonGame:
         self.is_game_active = False
         self.attempts_left = 0
 
-    def _display_menu(self, options, title):
+    def display_menu(self, options, title):
         """Display formatted menu with options."""
-        menu_options = self._format_menu_options(options)
-        self._show_box_display(title, menu_options)
+        menu_options = self.format_menu_options(options)
+        self.show_box_display(title, menu_options)
 
-    def _format_menu_options(self, options):
+    def format_menu_options(self, options):
         """Format menu options with numbers."""
         START_COUNT = 1
         menu_options = []
@@ -615,43 +615,43 @@ class PokemonGame:
         menu_options.append("[0] BACK")
         return menu_options
 
-    def _show_box_display(self, title, items):
+    def show_box_display(self, title, items):
         """Display items in a formatted box."""
-        self._print_box_top(title)
-        self._print_box_items(items)
-        self._print_box_bottom()
+        self.print_box_top(title)
+        self.print_box_items(items)
+        self.print_box_bottom()
 
-    def _print_box_top(self, title):
+    def print_box_top(self, title):
         """Print the top border with title."""
         print(f" === {title} ".ljust(MENU_WIDTH, "="))
 
-    def _print_box_items(self, items):
+    def print_box_items(self, items):
         """Print all items in the box."""
         for item in items:
             print(f"| {item}".ljust(MENU_WIDTH, " ") + "|")
 
-    def _print_box_bottom(self):
+    def print_box_bottom(self):
         """Print the bottom border of the box."""
         print(" " + "=" * (MENU_WIDTH - 1))
 
-    def _get_choice(self, max_choice):
+    def get_choice(self, max_choice):
         """Get and validate user choice from menu options."""
 
         # Loop until a valid choice is made
         while True:
-            choice = self._get_integer_choice("Enter your choice: ")
+            choice = self.get_integer_choice("Enter your choice: ")
 
             # If choice is None, continue to prompt again
             if choice is None:
                 continue
 
             # If choice is valid, return it
-            if self._is_valid_choice(choice, max_choice):
+            if self.is_valid_choice(choice, max_choice):
                 return choice
 
             print(f"Please enter a number between 0 and {max_choice}.")
 
-    def _get_integer_choice(self, prompt):
+    def get_integer_choice(self, prompt):
         try:
             # Prompt user for input and convert to integer
             return int(input(prompt).strip())
@@ -659,7 +659,7 @@ class PokemonGame:
             print("Invalid input. Please enter a number.")
             return None
 
-    def _is_valid_choice(self, choice, max_choice):
+    def is_valid_choice(self, choice, max_choice):
         """Validate user choice against max options."""
 
         # Check if choice is within valid range
@@ -669,12 +669,12 @@ class PokemonGame:
         # Return True if choice is valid
         return True
 
-    def _execute_menu_action(self, options_dict, choice):
+    def execute_menu_action(self, options_dict, choice):
         """Execute the selected menu action from the options dictionary."""
         selected_action = list(options_dict.values())[choice - 1]
         selected_action()
 
-    def _clear_screen(self, has_prompt=True):
+    def clear_screen(self, has_prompt=True):
         """Clear console screen."""
 
         # Check if the has_prompt flag is set to True
